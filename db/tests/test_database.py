@@ -141,3 +141,15 @@ class TestDatabase(TestCase):
         self.mock_query.filter.assert_called_once()
         self.mock_query.all.assert_called_once()
         self.mock_session.query.assert_called_once_with(models.SensorData)
+
+    def test_get_alerts_to_trigger(self):
+        alerts = [
+            models.Alert(id=1, target=22.3, direction=models.Direction.OVER, active=True, owner_id=3)
+        ]
+
+        self.mock_query.all.return_value = alerts
+
+        self.assertEqual(alerts, self.db.get_alerts_to_trigger(24.3))
+        self.mock_query.filter.assert_called_once()
+        self.mock_query.all.assert_called_once()
+        self.mock_session.query.assert_called_once_with(models.Alert)

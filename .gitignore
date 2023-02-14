@@ -4,3 +4,4 @@
 /api/tests/database.db
 /notifications/firebase_credentials.json
 .idea/
+/notifications/test/database.db
